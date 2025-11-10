@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Dealerships - Home{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+  <div class="card mx-auto" style="max-width: 900px;">
+    <img src="{% static 'car_dealership.jpg' %}" class="card-img-top" alt="car dealership">
+    <div class="card-body text-center">
+      <h5 class="card-title">Welcome to our Dealerships!</h5>
+      <a href="{% url 'djangoapp:dealers' %}" class="btn btn-info">View Dealerships</a>
+    </div>
+  </div>
+</div>
+{% endblock %}

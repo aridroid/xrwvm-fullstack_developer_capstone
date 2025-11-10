@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block title %}Login - Dealerships{% endblock %}
+
+{% block content %}
+<div class="review-panel" style="max-width:520px; margin-top:40px;">
+  <div class="panel-inner">
+    <h2 class="dealer-title">Login</h2>
+
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-{{ msg.tags }}">{{ msg }}</div>
+      {% endfor %}
+    {% endif %}
+
+    <form method="post" action="">
+      {% csrf_token %}
+      <div class="mb-3">
+        <input name="username" class="form-control" placeholder="Username" required />
+      </div>
+      <div class="mb-3">
+        <input name="password" type="password" class="form-control" placeholder="Password" required />
+      </div>
+
+      <div class="form-actions text-center">
+        <button type="submit" class="btn-post">Login</button>
+        <a href="{% url 'djangoapp:home' %}" class="btn-post" style="background:#eee;">Cancel</a>
+      </div>
+
+      <div class="text-center" style="margin-top:14px;">
+        <a href="{% url 'djangoapp:register' %}" class="btn-post-link">Register Now</a>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

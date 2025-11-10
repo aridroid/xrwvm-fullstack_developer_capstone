@@ -1,0 +1,228 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Dealerships{% endblock %}</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Optional project CSS (keep if you have frontend/static/css/main.css) -->
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+
+  <style>
+    /* ====== GLOBAL STYLES ====== */
+    header { background:#07cfc1; padding:18px 30px; }
+    header a.brand { font-size:36px; color:#015; text-decoration:none; }
+    .page-title { margin: 30px 0; }
+    .card-table { border: 1px solid #e6f6f6; padding:18px; border-radius:6px; background:#fafdfd; }
+
+    /* ====== REVIEW PANEL STYLING ====== */
+    .review-panel { max-width: 520px; margin: 30px auto; border: 3px solid #9fe0dd; padding: 24px; border-radius: 4px; background: #fff; }
+    .panel-inner { padding: 4px 12px; }
+    .dealer-title { color: #0033cc; font-size: 28px; font-weight: 700; margin-bottom: 14px; }
+    .form-group label { display: none; }
+    .review-textarea { width: 100%; resize: vertical; min-height: 160px; padding: 12px; border: 1px solid #dedede; border-radius: 3px; }
+    .small-fields { display: flex; gap: 10px; margin-top: 12px; }
+    .small-fields .col { flex: 1; display:flex; flex-direction:column; }
+    .small-fields label { font-size: 13px; margin-bottom:5px; color:#333; }
+    .form-control { padding:6px 8px; border:1px solid #ccc; border-radius:3px; width:100%; }
+    .form-actions { margin-top:14px; }
+    .btn-post { background:#ddd; border:1px solid #999; padding:8px 16px; cursor:pointer; font-weight:600; }
+    .btn-post:hover { background:#ccc; }
+    .btn-post-link { display:inline-block; margin-top:12px; background:#eee; padding:8px 12px; border-radius:4px; text-decoration:none; }
+    .reviews-list { margin-top:18px; }
+    .single-review { border-bottom:1px solid #eee; padding:8px 0; }
+    .single-review .meta { color:#444; font-size:14px; margin-bottom:6px; }
+    .single-review .review-text { color:#222; }
+    /* ensure homepage links are visible and clickable */
+    .homepage_links {
+      display: inline-block !important;
+      color: #003366 !important;        /* visible color on turquoise header */
+      text-decoration: none !important;
+      padding: 6px 8px;
+      background: transparent;
+      line-height: 1;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+
+    /* make sure navbar doesn't hide right-side links */
+    .navbar .collapse {
+      overflow: visible !important;
+    }
+
+    @media (max-width: 768px) {
+      /* stack on small screens (optional) */
+      .navbar .collapse.show .d-flex { flex-direction: column; align-items: flex-start; gap: 6px; }
+    }
+
+    /* ====== LOGIN PAGE STYLING ====== */
+    .login-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 36px 0 80px;
+    }
+    .login-card {
+      width: 680px;
+      border: 3px solid #9fe0dd;
+      border-radius: 4px;
+      background: #fff;
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    }
+    .login-card-header {
+      background: #07cfc1;
+      padding: 22px 28px;
+      color: #003;
+    }
+    .login-card-header h1 {
+      margin: 0;
+      font-size: 28px;
+      font-weight: 700;
+      color: #082033;
+    }
+    .login-card-body {
+      padding: 46px 80px;
+    }
+    .login-form .form-label {
+      width: 140px;
+      display: inline-block;
+      font-weight: 600;
+      color: #333;
+      margin-right: 12px;
+      text-align: right;
+    }
+    .form-input {
+      display: inline-block;
+      width: 320px;
+      border: 1px solid #cfcfcf;
+      background: #eef7fb;
+      padding: 10px 12px;
+      border-radius: 3px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    }
+    .form-row {
+      display: flex;
+      align-items: center;
+      margin-bottom: 14px;
+    }
+    .btn-login, .btn-cancel {
+      display:inline-block;
+      margin: 0 8px;
+      padding:10px 22px;
+      border-radius: 8px;
+      border: 2px solid #998f9f;
+      background: #efefef;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      color: #333;
+      box-shadow: 0 3px 0 rgba(0,0,0,0.06);
+    }
+    .btn-login:hover, .btn-cancel:hover {
+      background:#e6e6e6;
+    }
+    .btn-cancel {
+      background: #f6f4f6;
+    }
+    .register-link {
+      color: #0077cc;
+      text-decoration: underline;
+      font-weight: 500;
+    }
+
+    @media (max-width: 800px) {
+      .login-card { width: 90%; }
+      .login-card-body { padding: 28px; }
+      .form-input { width: 100%; }
+      .form-row { flex-direction: column; align-items: stretch; }
+      .login-form .form-label { text-align: left; margin-bottom:6px; width:auto; }
+    }
+
+    /* emergency override to ensure nothing hides layout while debugging */
+    html,body { height:100%; }
+    .container, main, header { display:block !important; visibility:visible !important; opacity:1 !important; }
+  </style>
+</head>
+<body>
+  <!-- Django server-side messages (Bootstrap alerts) -->
+  <div id="django-messages" style="position: fixed; top: 70px; right: 20px; z-index: 2000;">
+    {% if messages %}
+      {% for message in messages %}
+        <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+          {{ message }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  </div>
+
+  <header class="d-flex justify-content-between align-items-center">
+    <a class="brand" href="{% url 'djangoapp:home' %}">Dealerships</a>
+    <nav>
+      <a class="homepage_links" href="{% url 'djangoapp:home' %}">Home</a> |
+      <a class="homepage_links" href="{% url 'djangoapp:about' %}">About</a> |
+      <a class="homepage_links" href="{% url 'djangoapp:contact' %}">Contact</a> |
+      {% if user.is_authenticated %}
+        <span style="margin-left:10px; color:#003;">{{ user.username }}</span> |
+        <!-- note the id 'logout-link' used by JS below -->
+        <a id="logout-link" class="homepage_links" href="{% url 'djangoapp:logout' %}">Logout</a>
+      {% else %}
+        <a class="homepage_links" href="{% url 'djangoapp:login' %}">Login</a> |
+        <a class="homepage_links" href="{% url 'djangoapp:register' %}">Register</a>
+      {% endif %}
+    </nav>
+  </header>
+
+  <main class="container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="text-center mt-5 mb-4">
+    <small>© Your Project</small>
+  </footer>
+
+  <!-- optional: place scripts at bottom -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    (function () {
+      // Attach to logout-link if present. The link's href is the Django logout URL.
+      const logoutLink = document.getElementById('logout-link');
+      if (!logoutLink) return;
+
+      logoutLink.addEventListener('click', function (ev) {
+        ev.preventDefault();
+        // Confirm with the user first (optional):
+        const confirmed = confirm('Are you sure you want to logout?');
+        if (!confirmed) return;
+
+        // Call Django logout endpoint (GET) then show success alert and redirect.
+        // Use credentials: 'include' so cookies/session are sent when using a separate dev server.
+        const logoutUrl = logoutLink.getAttribute('href') || '/logout/';
+        fetch(logoutUrl, {
+          method: 'GET',
+          credentials: 'include'
+        })
+        .then(function (resp) {
+          // We don't strictly require JSON — treat any 2xx as success.
+          if (!resp.ok) {
+            throw new Error('Logout failed (status ' + resp.status + ')');
+          }
+          // show browser alert then redirect to home (or the page you prefer)
+          alert('You have been logged out successfully!');
+          // Redirect to homepage - change if you want to send to a different route
+          window.location.href = '{% url "djangoapp:home" %}';
+        })
+        .catch(function (err) {
+          console.error('Logout error:', err);
+          alert('An error occurred while logging out. Please try again.');
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

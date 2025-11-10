@@ -1,0 +1,44 @@
+<!-- server/djangoapp/templates/review.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container review-panel">
+  <div class="panel-inner">
+    <h1 class="dealer-title">{{ dealer.name }}</h1>
+
+    <form method="post" class="review-form">
+      {% csrf_token %}
+      <div class="form-group">
+        {{ form.review.label_tag }}
+        {{ form.review }}
+        {% if form.review.errors %} <div class="form-error">{{ form.review.errors }}</div>{% endif %}
+      </div>
+
+      <div class="row small-fields">
+        <div class="col">
+          <label for="id_purchase_date">Purchase Date</label>
+          {{ form.purchase_date }}
+          {% if form.purchase_date.errors %} <div class="form-error">{{ form.purchase_date.errors }}</div>{% endif %}
+        </div>
+
+        <div class="col">
+          <label for="id_car_make">Car Make</label>
+          {{ form.car_make }}
+          {% if form.car_make.errors %} <div class="form-error">{{ form.car_make.errors }}</div>{% endif %}
+        </div>
+
+        <div class="col">
+          <label for="id_car_year">Car Year</label>
+          {{ form.car_year }}
+          {% if form.car_year.errors %} <div class="form-error">{{ form.car_year.errors }}</div>{% endif %}
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-post">Post Review</button>
+      </div>
+    </form>
+  </div>
+</div>
+{% endblock %}

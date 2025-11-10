@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Register{% endblock %}
+
+{% block content %}
+<div class="register-wrap">
+  <div class="signup-panel">
+    <h2 class="signup-title">SignUp</h2>
+
+    {% if messages %}
+      <div>
+        {% for m in messages %}
+          <div class="alert alert-{{ m.tags }}">{{ m }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <form method="post" class="signup-form">
+      {% csrf_token %}
+      <div class="form-row">
+        <div class="icon">👤</div>
+        <input name="username" type="text" class="form-control" placeholder="Username" required>
+      </div>
+
+      <div class="form-row">
+        <div class="icon">👤</div>
+        <input name="first_name" type="text" class="form-control" placeholder="First Name">
+      </div>
+
+      <div class="form-row">
+        <div class="icon">👤</div>
+        <input name="last_name" type="text" class="form-control" placeholder="Last Name">
+      </div>
+
+      <div class="form-row">
+        <div class="icon">✉️</div>
+        <input name="email" type="email" class="form-control" placeholder="Email">
+      </div>
+
+      <div class="form-row">
+        <div class="icon">🔒</div>
+        <input name="password" type="password" class="form-control" placeholder="Password" required>
+      </div>
+
+      <div class="form-actions text-center">
+        <button type="submit" class="btn btn-register">Register</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<style>
+/* page center and teal panel to match screenshot */
+.register-wrap { display:flex; justify-content:center; align-items:center; padding:40px 0; }
+.signup-panel {
+  width: 420px;
+  background: #07cfc1;
+  padding: 28px;
+  border-radius: 4px;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.06);
+  color: #fff;
+  position: relative;
+}
+.signup-title { font-size:38px; margin:0 0 18px 0; font-weight:600; color:#fff; }
+
+.signup-form { background: transparent; }
+.form-row { display:flex; align-items:center; gap:12px; margin-bottom:12px; }
+.icon { width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:50%; background:rgba(255,255,255,0.2); }
+.form-control {
+  height:38px;
+  padding:6px 10px;
+  border-radius:2px;
+  border: none;
+  outline: none;
+  width:100%;
+  box-sizing:border-box;
+}
+.form-control::placeholder { color: rgba(0,0,0,0.6); }
+
+.btn-register {
+  background: #f2f2f2;
+  color: #333;
+  border: 1px solid #cfcfcf;
+  padding: 10px 24px;
+  border-radius:6px;
+  font-weight:600;
+  width:70%;
+}
+.form-actions { margin-top:18px; display:flex; justify-content:center; }
+@media (max-width:500px) {
+  .signup-panel { width: 92%; padding:20px; }
+  .signup-title { font-size:30px; }
+}
+</style>
+{% endblock %}

@@ -1,0 +1,149 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Contact Us - Dealerships{% endblock %}
+
+{% block content %}
+<style>
+  /* Panel wrapper */
+  .contact-wrapper {
+    max-width: 1100px;
+    margin: 32px auto 64px;
+    background: #fff;
+    border: 3px solid #9fe0dd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  }
+
+  .contact-hero {
+    background: #07cfc1;
+    padding: 20px 28px;
+    color: #082033;
+  }
+  .contact-hero h2 { margin: 0; font-size: 28px; font-weight:700; }
+
+  .contact-body {
+    padding: 22px 28px 36px;
+  }
+
+  /* top banner */
+  .contact-banner {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display:block;
+    border-bottom: 1px solid #eee;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 18px;
+    align-items: center;
+  }
+
+  /* left column (icon/short) */
+  .contact-left {
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-start;
+    padding: 20px;
+  }
+  .contact-left .contact-icon {
+    width: 220px;
+    height: 220px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: #fff;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.04);
+  }
+
+  /* right column (contact list) */
+  .contact-right {
+    padding: 20px 8px;
+    border-left: 1px solid rgba(0,0,0,0.06);
+  }
+  .contact-right h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #07cfc1;
+    font-weight:700;
+  }
+  .contact-list { list-style:none; padding:0; margin: 10px 0 0; }
+  .contact-list li { margin: 10px 0; color:#234; line-height:1.5; }
+  .contact-list a { color: #0a7ea6; text-decoration: none; font-weight:600; }
+  .contact-list a:hover { text-decoration: underline; }
+
+  /* small note row under contact */
+  .contact-footer {
+    margin-top: 18px;
+    display:flex;
+    gap: 16px;
+    align-items:center;
+    justify-content:flex-start;
+    font-size:14px;
+    color:#555;
+  }
+  .contact-phone { font-weight:700; }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .contact-grid { grid-template-columns: 1fr; }
+    .contact-right { border-left: none; border-top: 1px solid rgba(0,0,0,0.04); padding-top: 18px; }
+    .contact-banner { height:200px; }
+    .contact-left .contact-icon { width: 180px; height: 180px; }
+  }
+
+</style>
+
+<div class="contact-wrapper">
+  <div class="contact-hero">
+    <h2>Contact Us</h2>
+  </div>
+
+  <!-- banner image -->
+  <img src="{% static 'car_dealership.jpg' %}" alt="Dealership banner" class="contact-banner">
+
+  <div class="contact-body">
+    <div class="contact-grid">
+
+      <!-- left side: icon / branding -->
+      <div class="contact-left">
+        <img src="{% static 'contactus.png' %}" alt="support icon" class="contact-icon">
+        <p style="margin-top:14px; color:#444; text-align:center; max-width:360px;">
+          Need help? Our nationwide customer and dealer support teams are ready to assist you. See department contacts on the right.
+        </p>
+      </div>
+
+      <!-- right side: contact list and details -->
+      <div class="contact-right" role="region" aria-label="Contact details">
+        <h3>Contact Customer Service</h3>
+        <ul class="contact-list">
+          <li><a href="mailto:support@bestcars.com">support@bestcars.com</a> — General customer support</li>
+          <li><a href="mailto:NationalSales@bestcars.com">NationalSales@bestcars.com</a> — Advertising & partnerships</li>
+          <li><a href="mailto:PR@bestcars.com">PR@bestcars.com</a> — Public relations</li>
+          <li><a href="mailto:dealerinquiries@bestcars.com">dealerinquiries@bestcars.com</a> — Become a dealer</li>
+          <li><span class="contact-phone">Call us:</span> <a href="tel:+13126111111">312-611-1111</a></li>
+        </ul>
+
+        <div class="contact-footer">
+          <div>
+            <strong>Office hours:</strong><br>
+            Mon — Fri: 9:00 AM — 6:00 PM (local)
+          </div>
+          <div>
+            <strong>Alternate:</strong><br>
+            <a href="https://growwithbestcars.com" target="_blank" rel="noopener">growwithbestcars.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- /.contact-grid -->
+
+  </div> <!-- /.contact-body -->
+</div> <!-- /.contact-wrapper -->
+
+{% endblock %}

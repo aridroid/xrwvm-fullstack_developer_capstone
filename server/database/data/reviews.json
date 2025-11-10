@@ -549,6 +549,17 @@
       "car_make": "Cadillac",
       "car_model": "DeVille",
       "car_year": 1995
+    },
+    {
+      "id": 51,
+      "name": "Test User",
+      "dealership": 29,
+      "review": "Excellent service via API",
+      "purchase": true,
+      "purchase_date": "2023-10-01",
+      "car_make": "Toyota",
+      "car_model": "Prius",
+      "car_year": 2020
     }
   ]
 }

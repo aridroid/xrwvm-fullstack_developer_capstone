@@ -1,18 +1,25 @@
-# Uncomment the imports before you add the code
-# from django.urls import path
-from django.conf.urls.static import static
-from django.conf import settings
-# from . import views
+# server/djangoapp/urls.py
+from django.urls import path
+from . import views
 
-app_name = 'djangoapp'
+app_name = 'djangoapp'   # important — enables "djangoapp:about" reverse
+
 urlpatterns = [
-    # # path for registration
+    path('', views.home, name='home'),
+    path('about/', views.about, name='about'),
+    path('contact/', views.contact, name='contact'),
 
-    # path for login
-    # path(route='login', view=views.login_user, name='login'),
+    path('dealers/', views.get_dealerships, name='dealers'),
+    path('dealers/<int:dealer_id>/', views.dealer_detail, name='dealer-detail'),
+    path('dealers/<int:dealer_id>/review/', views.review_dealer, name='dealer-review'),
 
-    # path for dealer reviews view
+    # auth pages
+    path('login/', views.login_page, name='login'),
+    path('register/', views.register_page, name='register'),
+    path('logout/', views.logout_page, name='logout'),
 
-    # path for add a review view
-
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # API endpoints (if you need them)
+    path('api/dealers/', views.api_get_dealers, name='api-dealers'),
+    path('api/login/', views.login_user, name='api-login'),
+    path('api/logout/', views.api_logout, name='api-logout'),
+]
