@@ -25,9 +25,10 @@ jobs:
           pip install flake8
 
       - name: Run Linter (ignore errors)
+        # Using bash default on ubuntu; ensure we won't fail the job
         run: |
           echo "🔍 Running flake8..."
-          set +e
+          # run flake8 but don't fail the workflow on style errors
           find . -name "*.py" -exec flake8 {} + || true
           echo "✅ Python linting completed (errors ignored for CI/CD demo)"
 
@@ -47,8 +48,9 @@ jobs:
         run: npm install jshint --global
 
       - name: Run Linter (ignore errors)
+        shell: bash
         run: |
-          echo "🔍 Running jshint..."
-          set +e
-          find ./server/database -name "*.js" -exec jshint {} + || true
-          echo "✅ JavaS
+          echo "🔍 Running jshint on server/database..."
+          # Run jshint on the directory. If it fails, echo a message but do not fail the job.
+          jshint ./server/database || echo "⚠️ JavaScript lint warnings/errors ignored for CI/CD demo"
+          echo "✅ JavaScript linting completed (errors ig
